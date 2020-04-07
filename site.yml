@@ -1,0 +1,11 @@
+- hosts: client2
+  become: yes
+  become_user: root
+  become_method: sudo
+
+  roles:
+    - common
+    - php
+    - httpd
+    - mysql
+    - dizz
