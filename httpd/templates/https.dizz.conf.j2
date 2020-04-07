@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+    ServerAlias dizz.local
+    DocumentRoot /var/www/dizz
+    #ErrorLog /var/www/dizz/log/error.log
+    #CustomLog /var/www/dizz/log/requests.log combined
+</VirtualHost>
+
+<VirtualHost *:443>
+   ServerAlias {{ domain }}
+   DocumentRoot /var/www/{{ project }}
+   ServerName www.{domain }}
+   SSLEngine on
+   SSLCertificateFile {{ cert_path }}
+   SSLCertificateKeyFile {{ key_path }}
+</VirtualHost>
+
