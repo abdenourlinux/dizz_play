@@ -1,0 +1,33 @@
+---
+# tasks file for common
+
+- name: Installing EPEL
+  yum:
+     name: epel-release
+     state: installed
+
+- name: Installing repo for php73
+  yum:
+    name: "http://rpms.remirepo.net/enterprise/remi-release-7.rpm"
+    state: present
+
+- name: Installing requirements
+  yum:
+   name: ['zip','unzip','git','yum-utils']
+   state: present
+
+
+- name: Opening http/https ports
+  firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+  with_items:
+      - 80/tcp
+      - 443/tcp
+
+- name: Restarting firewalld
+  service:
+    name: firewalld
+    state: reloaded
+
