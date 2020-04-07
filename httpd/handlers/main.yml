@@ -1,0 +1,11 @@
+---
+# handlers file for httpd
+- name: Start Httpd
+  service:
+     name: httpd
+     state: started
+
+- name: Enable Httpd
+  service:
+    name: httpd
+    enabled: yes 
