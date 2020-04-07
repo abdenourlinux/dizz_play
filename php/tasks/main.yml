@@ -1,0 +1,18 @@
+---
+# tasks file for php
+
+- name: Installing php73 
+  yum:
+    name: ['php73','php73-php']
+    state: present
+
+- name: Installing Needed modules
+  yum:
+    name: ['php73-php-xml',' php73-php-bcmath','php73-php-pecl-mysql','php73-php-pecl-mcrypt','php73-php-pdo','php73-php-gmp','php73-php-gd','php73-php-mbstring']
+    state: present
+
+- name: Creating Symlink
+  file:
+    src: /usr/bin/php73
+    dest: /usr/bin/php
+    state: link
