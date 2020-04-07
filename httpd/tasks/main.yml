@@ -1,0 +1,42 @@
+---
+# tasks file for httpd
+- name: Install httpd
+  yum:
+    name: httpd 
+    state: present
+
+- name: Creating Project DocumentRoot Directory
+  file:
+    path: /var/www/{{ project }}
+    state: directory
+    mode: '0755'
+
+
+- name: Creating a vhost for the http project
+  template:
+    src: dizz.conf.j2
+    dest: /etc/httpd/conf.d/{{ project }}.conf
+    mode: 644
+  when: is_https == false
+
+- name: Creating a vhost for HTTPS project
+  template:
+    src: https.dizz.conf.j2
+    dest: /etc/httpd/conf.d/{{ project }}.conf
+    mode: 644
+  when: is_https == true
+
+- name: Chenging SELinux permissions
+  shell: setsebool -P httpd_unified 1
+
+- name: Starting httpd service
+  service:
+    name: httpd
+    state: restarted
+
+- name: Enabling httpd service
+  service:
+    name: httpd
+    enabled: yes  
+ 
+
